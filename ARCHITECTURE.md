@@ -103,7 +103,7 @@ useAuth (hook)  ──►  Zustand store  ──►  Role-based layout
 - In the patient form UI, creation allows `Active`/`Inactive`; edit additionally allows `Cured`.
 - Firestore move flow for `Cured` is intentionally deferred until UI validation is completed. Planned integration:
   1. Update `patients/{id}` to `patientStatus: "Cured"` during edit submit.
-  2. Copy the final record into `cured_patients/{id}` with `curedAt`.
+  2. Copy the final record into `cured_patients/{id}` with `curedAt: serverTimestamp()`.
   3. Remove `patients/{id}` after successful copy, preferably in a single batch/transaction.
 
 ---
