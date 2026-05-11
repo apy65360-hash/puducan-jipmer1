@@ -97,6 +97,15 @@ useAuth (hook)  ──►  Zustand store  ──►  Role-based layout
 4. All patient/hospital data is fetched via TanStack Query — this handles caching, refetching, and loading states automatically.
 5. Forms use React Hook Form + Zod for validation, and write directly to Firestore on submit.
 
+### Patient case status (Issue #124)
+
+- `patientStatus` is the case status field and only accepts `Active`, `Inactive`, or `Cured` in `schema/patient.ts`.
+- In the patient form UI, creation allows `Active`/`Inactive`; edit additionally allows `Cured`.
+- Firestore move flow for `Cured` is intentionally deferred until UI validation is completed. Planned integration:
+  1. Update `patients/{id}` to `patientStatus: "Cured"` during edit submit.
+  2. Copy the final record into `cured_patients/{id}` with `curedAt`.
+  3. Remove `patients/{id}` after successful copy, preferably in a single batch/transaction.
+
 ---
 
 ## 🧪 Testing
