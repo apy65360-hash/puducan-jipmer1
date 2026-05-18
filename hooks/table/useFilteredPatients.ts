@@ -26,7 +26,9 @@ export function useFilteredPatients(patients: Patient[] = []): Patient[] {
 
                 const matchStatus =
                     statuses.length === 0 ||
-                    statuses.includes((p.patientStatus || '').toLowerCase())
+                    statuses
+                        .map((status) => status.toLowerCase())
+                        .includes((p.patientStatus || '').toLowerCase())
 
                 const matchRationCard =
                     rationColors.length === 0 ||
